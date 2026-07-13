@@ -25,16 +25,15 @@ def pregunta_07():
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
 
     """
-    by_value = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    agrupado = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 1:
-                letter = columns[0]
-                value = int(columns[1])
-                if value not in by_value:
-                    by_value[value] = [letter]
-                else:
-                    by_value[value].append(letter)
-                    
-    return sorted(by_value.items())
+                letra = columns[0]
+                numero = int(columns[1])
+                if numero not in agrupado:
+                    agrupado[numero] = []
+                agrupado[numero].append(letra)
+
+    return sorted(agrupado.items())

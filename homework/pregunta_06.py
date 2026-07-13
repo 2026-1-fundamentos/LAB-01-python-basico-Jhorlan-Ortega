@@ -4,8 +4,6 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
-
 def pregunta_06():
     """
     La columna 5 codifica un diccionario donde cada cadena de tres letras
@@ -26,22 +24,18 @@ def pregunta_06():
      ('jjj', 5, 17)]
 
     """
-    key_values = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    valores = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 4:
-                dict_items = columns[4].split(",")
-                for item in dict_items:
-                    key, val = item.split(":")
-                    val = int(val)
-                    if key not in key_values:
-                        key_values[key] = [val, val]
-                    else:
-                        if val < key_values[key][0]:
-                            key_values[key][0] = val
-                        if val > key_values[key][1]:
-                            key_values[key][1] = val
-                            
-    result = [(key, limits[0], limits[1]) for key, limits in key_values.items()]
-    return sorted(result)
+                pares = columns[4].split(",")
+                for par in pares:
+                    clave, valor = par.split(":")
+                    valor = int(valor)
+                    if clave not in valores:
+                        valores[clave] = []
+                    valores[clave].append(valor)
+
+    resultado = [(clave, min(vals), max(vals)) for clave, vals in valores.items()]
+    return sorted(resultado)

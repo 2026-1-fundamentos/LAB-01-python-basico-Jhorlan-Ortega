@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+
 def pregunta_11():
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada
@@ -15,15 +16,14 @@ def pregunta_11():
 
 
     """
-    sums = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    sumas = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 3:
-                value = int(columns[1])
-                letters = columns[3].split(",")
-                for letter in letters:
-                    sums[letter] = sums.get(letter, 0) + value
-                    
-    # Retornar el diccionario ordenado alfabéticamente por sus llaves
-    return {key: sums[key] for key in sorted(sums.keys())}
+                valor = int(columns[1])
+                letras = columns[3].split(",")
+                for letra in letras:
+                    sumas[letra] = sumas.get(letra, 0) + valor
+
+    return dict(sorted(sumas.items()))

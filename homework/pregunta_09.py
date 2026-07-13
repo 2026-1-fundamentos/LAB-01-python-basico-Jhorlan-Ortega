@@ -24,14 +24,14 @@ def pregunta_09():
      'jjj': 18}
 
     """
-    counts = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    conteo = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 4:
-                dict_items = columns[4].split(",")
-                for item in dict_items:
-                    key = item.split(":")[0]
-                    counts[key] = counts.get(key, 0) + 1
-                    
-    return counts
+                pares = columns[4].split(",")
+                for par in pares:
+                    clave, _ = par.split(":")
+                    conteo[clave] = conteo.get(clave, 0) + 1
+
+    return conteo

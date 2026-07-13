@@ -5,6 +5,7 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+
 def pregunta_12():
     """
     Genere un diccionario que contengan como clave la columna 1 y como valor
@@ -14,14 +15,14 @@ def pregunta_12():
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
 
     """
-    sums = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    sumas = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 4:
-                col1 = columns[0]
-                dict_items = columns[4].split(",")
-                row_sum = sum(int(item.split(":")[1]) for item in dict_items)
-                sums[col1] = sums.get(col1, 0) + row_sum
-                
-    return {key: sums[key] for key in sorted(sums.keys())}
+                letra = columns[0]
+                pares = columns[4].split(",")
+                suma_fila = sum(int(par.split(":")[1]) for par in pares)
+                sumas[letra] = sumas.get(letra, 0) + suma_fila
+
+    return sumas

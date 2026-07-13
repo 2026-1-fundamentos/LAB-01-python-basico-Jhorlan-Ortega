@@ -4,8 +4,6 @@ datos requeridos se encuentran en el archivo data.csv. En este laboratorio
 solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
-
-
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la
@@ -26,13 +24,13 @@ def pregunta_04():
      ('12', 3)]
 
     """
-    monthly_counts = {}
-    with open("data.csv", "r", encoding="utf-8") as file:
+    conteo = {}
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
         for line in file:
-            columns = line.strip().split("\t")
+            columns = line.strip().split()
             if len(columns) > 2:
-                date_str = columns[2]
-                month = date_str.split("-")[1]
-                monthly_counts[month] = monthly_counts.get(month, 0) + 1
-                
-    return sorted(monthly_counts.items())
+                fecha = columns[2]
+                mes = fecha.split("-")[1]
+                conteo[mes] = conteo.get(mes, 0) + 1
+
+    return sorted(conteo.items())
