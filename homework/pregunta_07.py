@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_07():
     """
     Retorne una lista de tuplas que asocien las columnas 0 y 1. Cada tupla
@@ -23,5 +22,20 @@ def pregunta_07():
      (7, ['A', 'C', 'E', 'D']),
      (8, ['E', 'D', 'E', 'A', 'B']),
      (9, ['A', 'B', 'E', 'A', 'A', 'C'])]
-
     """
+    dic = {}
+    with open('data.csv', 'r') as archivo:
+        for linea in archivo:
+            linea = linea.strip()
+            if not linea:
+                continue
+            columnas = linea.split(',')
+            letra = columnas[1]   # columna 1 (índice 1)
+            valor = int(columnas[2])  # columna 2 (índice 2)
+            if valor not in dic:
+                dic[valor] = []
+            dic[valor].append(letra)
+    
+    # Ordenar por clave (valor) numéricamente
+    resultado = sorted(dic.items())  # items devuelve tuplas (clave, lista)
+    return resultado
