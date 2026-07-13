@@ -5,12 +5,13 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
+
 def pregunta_08():
     """
     Genere una lista de tuplas, donde el primer elemento de cada tupla
-    contiene el valor de la segunda columna; la segunda parte de la tupla
+    contiene  el valor de la segunda columna; la segunda parte de la tupla
     es una lista con las letras (ordenadas y sin repetir letra) de la
-    primera columna que aparecen asociadas a dicho valor de la segunda
+    primera  columna que aparecen asociadas a dicho valor de la segunda
     columna.
 
     Rta/
@@ -24,25 +25,19 @@ def pregunta_08():
      (7, ['A', 'C', 'D', 'E']),
      (8, ['A', 'B', 'D', 'E']),
      (9, ['A', 'B', 'C', 'E'])]
+
     """
-    agrupacion = {}
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if not linea:
-                continue
-            columnas = linea.split(',')
-            letra = columnas[0]          # columna 1 (índice 0)
-            valor = int(columnas[1])     # columna 2 (índice 1)
-            
-            if valor not in agrupacion:
-                agrupacion[valor] = set()
-            agrupacion[valor].add(letra)  # añadimos al conjunto para evitar duplicados
-    
-    # Construir resultado: para cada valor ordenado, convertir el set a lista ordenada
-    resultado = []
-    for valor in sorted(agrupacion.keys()):
-        letras_ordenadas = sorted(agrupacion[valor])  # lista alfabética
-        resultado.append((valor, letras_ordenadas))
-    
-    return resultado
+    by_value = {}
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            if len(columns) > 1:
+                letter = columns[0]
+                value = int(columns[1])
+                if value not in by_value:
+                    by_value[value] = {letter}
+                else:
+                    by_value[value].add(letter)
+                    
+    result = [(val, sorted(list(letters))) for val, letters in by_value.items()]
+    return sorted(result)

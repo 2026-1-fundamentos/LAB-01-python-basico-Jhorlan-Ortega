@@ -24,34 +24,24 @@ def pregunta_06():
      ('hhh', 0, 9),
      ('iii', 0, 9),
      ('jjj', 5, 17)]
-    """
-    extremos = {}
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if not linea:
-                continue
-            columnas = linea.split(',')
-            # La columna 5 es el índice 4
-            col5 = columnas[4]
-            # Dividir cada par clave:valor, separados por coma
-            pares = col5.split(',')
-            for par in pares:
-                if ':' not in par:
-                    continue
-                clave, valor_str = par.split(':')
-                clave = clave.strip()
-                valor = int(valor_str.strip())
-                if clave not in extremos:
-                    extremos[clave] = [valor, valor]  # [min, max]
-                else:
-                    if valor < extremos[clave][0]:
-                        extremos[clave][0] = valor
-                    if valor > extremos[clave][1]:
-                        extremos[clave][1] = valor
 
-    # Ordenar por clave alfabéticamente y construir la lista de tuplas
-    resultado = []
-    for clave in sorted(extremos.keys()):
-        resultado.append((clave, extremos[clave][0], extremos[clave][1]))
-    return resultado
+    """
+    key_values = {}
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            if len(columns) > 4:
+                dict_items = columns[4].split(",")
+                for item in dict_items:
+                    key, val = item.split(":")
+                    val = int(val)
+                    if key not in key_values:
+                        key_values[key] = [val, val]
+                    else:
+                        if val < key_values[key][0]:
+                            key_values[key][0] = val
+                        if val > key_values[key][1]:
+                            key_values[key][1] = val
+                            
+    result = [(key, limits[0], limits[1]) for key, limits in key_values.items()]
+    return sorted(result)

@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_12():
     """
     Genere un diccionario que contengan como clave la columna 1 y como valor
@@ -13,29 +12,16 @@ def pregunta_12():
 
     Rta/
     {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
-    """
-    suma_por_letra = {}
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if not linea:
-                continue
-            columnas = linea.split(',')
-            letra = columnas[0]          # columna 1 (índice 0)
-            col5 = columnas[4]           # columna 5 (índice 4)
-            # Dividir por comas para obtener cada par clave:valor
-            pares = col5.split(',')
-            for par in pares:
-                if ':' not in par:
-                    continue
-                # Extraer el valor después del ':'
-                valor_str = par.split(':')[1].strip()
-                if valor_str:
-                    valor = int(valor_str)
-                    suma_por_letra[letra] = suma_por_letra.get(letra, 0) + valor
 
-    # Ordenar el diccionario por clave alfabéticamente
-    resultado = {}
-    for letra in sorted(suma_por_letra.keys()):
-        resultado[letra] = suma_por_letra[letra]
-    return resultado
+    """
+    sums = {}
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            if len(columns) > 4:
+                col1 = columns[0]
+                dict_items = columns[4].split(",")
+                row_sum = sum(int(item.split(":")[1]) for item in dict_items)
+                sums[col1] = sums.get(col1, 0) + row_sum
+                
+    return {key: sums[key] for key in sorted(sums.keys())}

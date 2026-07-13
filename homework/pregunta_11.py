@@ -5,7 +5,6 @@ solo puede utilizar las funciones y librerias basicas de python. No puede
 utilizar pandas, numpy o scipy.
 """
 
-
 def pregunta_11():
     """
     Retorne un diccionario que contengan la suma de la columna 2 para cada
@@ -13,27 +12,18 @@ def pregunta_11():
 
     Rta/
     {'a': 122, 'b': 49, 'c': 91, 'd': 73, 'e': 86, 'f': 134, 'g': 35}
-    """
-    sumas = {}
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if not linea:
-                continue
-            columnas = linea.split(',')
-            valor_col2 = int(columnas[1])   # columna 2 (índice 1)
-            col4 = columnas[3]              # columna 4 (índice 3)
-            
-            # Separar por coma y obtener las letras individuales
-            letras = col4.split(',')
-            for letra in letras:
-                letra = letra.strip()
-                if letra:  # evitar vacíos
-                    sumas[letra] = sumas.get(letra, 0) + valor_col2
 
-    # Ordenar alfabéticamente las claves y construir el diccionario final
-    resultado = {}
-    for letra in sorted(sumas.keys()):
-        resultado[letra] = sumas[letra]
-    
-    return resultado
+
+    """
+    sums = {}
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            if len(columns) > 3:
+                value = int(columns[1])
+                letters = columns[3].split(",")
+                for letter in letters:
+                    sums[letter] = sums.get(letter, 0) + value
+                    
+    # Retornar el diccionario ordenado alfabéticamente por sus llaves
+    return {key: sums[key] for key in sorted(sums.keys())}

@@ -9,15 +9,11 @@ utilizar pandas, numpy o scipy.
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
-
-    Rta/
-    214
     """
-    suma = 0
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if linea:
-                columnas = linea.split(',')
-                suma += int(columnas[1])
-    return suma
+    with open("data.csv", "r", encoding="utf-8") as file:
+        total_sum = 0
+        for line in file:
+            columns = line.strip().split("\t")
+            if len(columns) > 1:
+                total_sum += int(columns[1])
+    return total_sum

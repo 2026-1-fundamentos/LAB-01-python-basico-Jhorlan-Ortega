@@ -9,21 +9,18 @@ utilizar pandas, numpy o scipy.
 def pregunta_02():
     """
     Retorne la cantidad de registros por cada letra de la primera columna como
-    la lista de tuplas (letra, cantidad), ordenadas alfabéticamente.
+    la lista de tuplas (letra, cantidad), ordendas alfabéticamente.
 
     Rta/
     [('A', 8), ('B', 7), ('C', 5), ('D', 6), ('E', 14)]
-    """
-    conteo = {}
-    with open('data.csv', 'r') as archivo:
-        for linea in archivo:
-            linea = linea.strip()
-            if not linea:
-                continue
-            columnas = linea.split(',')
-            letra = columnas[0]  # primera columna
-            conteo[letra] = conteo.get(letra, 0) + 1
 
-    # Ordenar alfabéticamente por la letra (clave)
-    resultado = sorted(conteo.items())  # items() devuelve tuplas (letra, cantidad)
-    return resultado
+    """
+    counts = {}
+    with open("data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columns = line.strip().split("\t")
+            if columns and columns[0]:
+                letter = columns[0]
+                counts[letter] = counts.get(letter, 0) + 1
+                
+    return sorted(counts.items())
